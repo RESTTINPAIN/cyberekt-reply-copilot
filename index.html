@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reply Studio for X</title>
+    <meta name="description" content="Paste any X post. Get one sharper reply. Decide whether to comment or skip." />
+    <meta name="theme-color" content="#1e4d3e" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1f3af;</text></svg>" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="hero">
+        <div class="hero-main">
+          <div class="hero-top-row">
+            <div class="hero-badge">Reply Studio</div>
+            <a class="hero-author" href="https://x.com/cyberekt" target="_blank" rel="noopener">by @cyberekt</a>
+          </div>
+          <h1>Paste any X&nbsp;post.<br/>Get one sharper reply.<br/>Decide fast.</h1>
+          <p class="hero-copy">
+            Drop in a public X link or raw text. The app imports the post,
+            reasons through what it is actually saying, suggests one sharper
+            reply, and tells you whether to comment or skip.
+          </p>
+        </div>
+        <nav class="hero-steps" aria-label="Workflow steps">
+          <div class="hero-step">
+            <span class="hero-step-num">1</span>
+            <span class="hero-step-label">Import</span>
+          </div>
+          <span class="hero-step-line"></span>
+          <div class="hero-step">
+            <span class="hero-step-num">2</span>
+            <span class="hero-step-label">Reply</span>
+          </div>
+          <span class="hero-step-line"></span>
+          <div class="hero-step">
+            <span class="hero-step-num">3</span>
+            <span class="hero-step-label">Decide</span>
+          </div>
+        </nav>
+      </header>
+
+      <main class="layout">
+        <section class="panel panel-input">
+          <div class="panel-head">
+            <div class="panel-kicker">
+              <span class="panel-step-badge">1</span>
+              Input
+            </div>
+            <h2>Import Post</h2>
+            <p class="panel-desc">Paste a public X link or the raw post text.</p>
+          </div>
+
+          <div class="mode-switch" role="tablist" aria-label="Reasoning mode">
+            <div class="mode-track" id="modeTrack"></div>
+            <button id="modeLocalBtn" class="mode-btn" type="button" data-mode="local" aria-pressed="false">Quick Local</button>
+            <button id="modeFocusedBtn" class="mode-btn" type="button" data-mode="focused" aria-pressed="false">Focused AI</button>
+            <button id="modeClaudeBtn" class="mode-btn" type="button" data-mode="claude" aria-pressed="false">Claude</button>
+            <button id="modeOllamaBtn" class="mode-btn" type="button" data-mode="ollama" aria-pressed="false">Ollama</button>
+          </div>
+
+          <p id="modeHint" class="helper-text mode-hint" aria-live="polite">
+            Quick Local works without an API key and is best for fast filtering.
+          </p>
+
+          <label id="apiKeyField" class="field">
+            <span class="field-label">OpenAI API Key</span>
+            <input id="apiKey" type="password" placeholder="Stored locally in this browser" autocomplete="off" />
+          </label>
+
+          <label id="claudeApiKeyField" class="field field-hidden">
+            <span class="field-label">Claude API Key</span>
+            <input id="claudeApiKey" type="password" placeholder="Stored locally in this browser" autocomplete="off" />
+          </label>
+
+          <label id="ollamaModelField" class="field field-hidden">
+            <span class="field-label">Ollama Model</span>
+            <input id="ollamaModel" type="text" placeholder="Leave blank to auto-detect" autocomplete="off" />
+          </label>
+
+          <label class="field">
+            <span class="field-label">X Post Link</span>
+            <input id="postLink" type="url" placeholder="https://x.com/handle/status/1234567890" />
+          </label>
+
+          <div id="importStatus" class="status-bar" aria-live="polite">
+            <span class="status-dot"></span>
+            <span class="status-text">Paste a link or text to begin.</span>
+          </div>
+
+          <label class="field field-block">
+            <span class="field-label">Post Text</span>
+            <textarea id="postText" rows="10" placeholder="Paste the X post text here, or let the app import it from the link above..."></textarea>
+          </label>
+
+          <div class="action-row">
+            <button id="analyzeBtn" class="primary-btn">
+              <span class="btn-label">Analyze</span>
+              <kbd class="btn-shortcut">Ctrl+Enter</kbd>
+            </button>
+            <button id="clearBtn" class="ghost-btn">Clear</button>
+          </div>
+        </section>
+
+        <section class="panel panel-suggestion">
+          <div class="panel-head">
+            <div class="panel-kicker">
+              <span class="panel-step-badge">2</span>
+              Reply
+            </div>
+            <h2>Suggested Reply</h2>
+            <p class="panel-desc" id="suggestionHint" aria-live="polite">
+              One reply only. It should add a real angle, not restate the post.
+            </p>
+          </div>
+
+          <article id="suggestedCard" class="suggested-card placeholder">
+            <div class="reply-top">
+              <h3 id="suggestedTitle">Suggested Reply</h3>
+              <button id="copyBtn" class="copy-btn" type="button">
+                <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span class="copy-label">Copy</span>
+              </button>
+            </div>
+            <div class="reply-body">
+              <p id="suggestedComment">
+                Paste a post first. The app will suggest one sharper reply only if it has a real angle.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="panel panel-verdict">
+          <div class="panel-head">
+            <div class="panel-kicker">
+              <span class="panel-step-badge">3</span>
+              Decision
+            </div>
+            <h2>Comment Or Skip</h2>
+            <p class="panel-desc" id="verdictSummary">
+              A clear yes-or-no call based on whether the reply adds value.
+            </p>
+          </div>
+
+          <div id="verdictBadge" class="verdict-badge verdict-waiting" aria-live="polite">
+            Waiting
+          </div>
+
+          <ul id="verdictReasons" class="reason-list" aria-live="polite">
+            <li>Looking for a post with a clear missing angle.</li>
+          </ul>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

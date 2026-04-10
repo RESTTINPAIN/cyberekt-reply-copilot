@@ -1,0 +1,50 @@
+HOW TO RUN REPLY STUDIO
+=======================
+
+STEP 1: Install Node.js (one-time only)
+  - Go to https://nodejs.org
+  - Click the big green "LTS" download button
+  - Run the installer, click Next through everything
+  - Restart your computer after installing
+
+STEP 2: Run the app
+  - Double-click launch.bat
+  - The app opens in your browser automatically
+  - That's it. You're done.
+
+STEP 3: Use it
+  - Paste an X post link or text into the first panel
+  - Click "Analyze"
+  - The app tells you whether to comment or skip
+  - If it says comment, it gives you a reply you can copy
+
+
+TROUBLESHOOTING
+===============
+
+"Node.js is not installed"
+  → Do Step 1 above. Restart your computer after installing.
+
+The browser opens but shows an error
+  → Close everything and double-click launch.bat again.
+
+"Port already in use"
+  → Another app is using that port. Close it or restart your PC.
+
+Want to use Focused AI or Claude modes?
+  → You need an API key. Paste it into the app directly.
+  → Keys are stored in your browser only. They never leave your PC
+    except to call the API you chose.
+
+Want to use Ollama mode?
+  → Install Ollama from https://ollama.com
+  → Run: ollama pull llama3
+  → Then use the app normally and select "Ollama" mode.
+
+
+WHAT THIS APP DOES NOT DO
+=========================
+  - It does NOT post replies for you. You copy and paste manually.
+  - It does NOT store your data anywhere outside your browser.
+  - It does NOT connect to the internet unless you choose an API mode.
+  - It does NOT require any account or subscription.

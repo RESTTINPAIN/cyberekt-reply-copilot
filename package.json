@@ -1,0 +1,14 @@
+{
+  "name": "cyberekt-reply-copilot",
+  "version": "1.0.0",
+  "description": "Local desktop copilot for evaluating X posts and drafting one reply.",
+  "license": "MIT",
+  "private": false,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check app.js"
+  }
+}
