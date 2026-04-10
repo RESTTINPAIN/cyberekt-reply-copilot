@@ -4,6 +4,8 @@ A local desktop app that helps you decide whether an X post is worth replying to
 
 Paste a public X link or raw post text. The app imports the post, reasons through what it is actually saying, suggests one reply, and gives you a clear Comment or Skip verdict.
 
+<img width="1237" height="904" alt="Screenshot 2026-04-10 143306" src="https://github.com/user-attachments/assets/e992f0e3-a8b3-4f91-9841-ea26b9ef8f47" />
+
 ## Features
 
 - Import a public X post from a link or paste raw text
